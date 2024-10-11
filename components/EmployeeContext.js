@@ -1,11 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, {
-  createContext,
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import React, { createContext, useCallback, useContext, useState } from "react";
 const EmployeeContext = createContext();
 const initialEmployees = [
   {
@@ -39,15 +33,12 @@ export const EmployeeProvider = ({ children }) => {
 
   const loadEmployees = useCallback(async () => {
     try {
-      console.log("Starting to load employees");
       const storedEmployees = await AsyncStorage.getItem("employees");
-      console.log("Stored employees (raw):", storedEmployees);
 
       if (storedEmployees !== null && storedEmployees !== "[]") {
         const parsedEmployees = JSON.parse(storedEmployees);
-        console.log("Parsed employees:", parsedEmployees);
+
         setEmployees(parsedEmployees);
-        console.log("Employees state set with parsed data");
       } else {
         console.log(
           "No stored employees or empty array, setting initial employees"
@@ -57,12 +48,8 @@ export const EmployeeProvider = ({ children }) => {
           JSON.stringify(initialEmployees)
         );
         setEmployees(initialEmployees);
-        console.log("Employees state set with initial data:", initialEmployees);
       }
-      console.log("Finished loading employees");
-    } catch (error) {
-      console.error("Error loading employees:", error);
-    }
+    } catch (error) {}
   }, []);
   //add employee
   const addEmployee = async (newEmployee) => {

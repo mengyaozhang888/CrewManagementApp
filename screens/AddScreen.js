@@ -9,14 +9,14 @@ import {
   Alert,
   FlatList,
   ScrollView,
+  SectionList,
 } from "react-native";
 import { useEmployee } from "../components/EmployeeContext";
-
 import RNPickerSelect from "react-native-picker-select";
+
 const AddScreen = () => {
   const [empName, setEmpName] = useState("");
   const [role, setRole] = useState(null);
-
   const { addEmployee, employees, loadEmployees, deleteEmployee } =
     useEmployee();
 
@@ -32,9 +32,7 @@ const AddScreen = () => {
       role: role,
       currentTask: "",
     };
-    console.log("Attempting to add employee:", newEmployee);
     const success = await addEmployee(newEmployee);
-    console.log("Add employee result:", success);
     if (success) {
       Alert.alert("Employee added successfully");
       setEmpName("");
@@ -43,6 +41,7 @@ const AddScreen = () => {
       Alert.alert("Failed to add employee");
     }
   };
+
   const onDeleteHandler = async (id) => {
     Alert.alert("Delete Employee", "Are you sure?", [
       { text: "Cancel", style: "cancel" },
@@ -53,8 +52,6 @@ const AddScreen = () => {
           if (success) {
             Alert.alert("Employee deleted successfully");
             loadEmployees();
-          } else {
-            Alert.alert("Failed to delete employee");
           }
         },
       },
@@ -69,58 +66,66 @@ const AddScreen = () => {
       >
         <Text style={styles.buttonText}>Delete</Text>
       </TouchableOpacity>
-    </View> // Render each item in the list
+    </View>
   );
+  const renderSectionHeader = ({ section: { title } }) => (
+    <Text style={styles.title}>{title}</Text>
+  );
+  const sections = [
+    {
+      title: "Add New Employee",
+      data: [{ key: "add_form" }],
+      renderItem: () => (
+        <View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Name:</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Enter name"
+              value={empName}
+              onChangeText={(text) => setEmpName(text)}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Role:</Text>
+            <View style={styles.pickerContainer}>
+              <RNPickerSelect
+                onValueChange={(value) => setRole(value)}
+                placeholder={{ label: "Click to Select Role", value: null }}
+                items={[
+                  { label: "Engineer", value: "Engineer" },
+                  { label: "Manager", value: "Manager" },
+                  { label: "Intern", value: "Intern" },
+                  { label: "Designer", value: "Designer" },
+                  { label: "Marketing", value: "Marketing" },
+                  { label: "Developer", value: "Developer" },
+                ]}
+                value={role}
+                style={pickerSelectStyles}
+              />
+            </View>
+          </View>
+          <TouchableOpacity onPress={addHandler} style={styles.button}>
+            <Text style={styles.buttonText}>Add</Text>
+          </TouchableOpacity>
+        </View>
+      ),
+    },
+    {
+      title: "Delete employee",
+      data: employees,
+    },
+  ];
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <Text style={styles.title}>Add New Employee</Text>
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Name:</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter name"
-            value={empName}
-            onChangeText={(text) => setEmpName(text)}
-          ></TextInput>
-        </View>
-        <View style={styles.inputContainer}>
-          <Text style={styles.label}>Role:</Text>
-          <View style={styles.pickerContainer}>
-            <RNPickerSelect
-              onValueChange={(value) => setRole(value)}
-              placeholder={{ label: "Click to Select Role", value: null }}
-              items={[
-                { label: "Engineer", value: "Engineer" },
-                { label: "Manager", value: "Manager" },
-                { label: "Intern", value: "Intern" },
-                { label: "Designer", value: "Designer" },
-                { label: "Marketing", value: "Marketing" },
-                { label: "Developer", value: "Developer" },
-              ]}
-              value={role}
-              style={pickerSelectStyles}
-            ></RNPickerSelect>
-          </View>
-        </View>
-        <TouchableOpacity
-          title="Add"
-          onPress={addHandler}
-          style={styles.button}
-        >
-          <Text style={styles.buttonText}>Add</Text>
-        </TouchableOpacity>
-        <View>
-          <Text style={styles.title}>Delete employee</Text>
-          <FlatList
-            data={employees}
-            renderItem={renderItem}
-            keyExtractor={(item) => item.id}
-            extraData={employees}
-          />
-        </View>
-      </ScrollView>
+      <SectionList
+        sections={sections}
+        keyExtractor={(item, index) => item.id || String(index)}
+        renderItem={renderItem}
+        renderSectionHeader={renderSectionHeader}
+        stickySectionHeadersEnabled={false}
+      />
     </SafeAreaView>
   );
 };

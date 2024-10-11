@@ -21,7 +21,7 @@ function MainTabs() {
           let iconName;
           if (route.name === "Employees") {
             iconName = focused ? "people" : "people-outline";
-          } else if (route.name === "Add Employee") {
+          } else if (route.name === "Manage Employee") {
             iconName = focused ? "person-add" : "person-add-outline";
           }
           return <Ionicons name={iconName} size={size} color={color} />;
@@ -29,7 +29,7 @@ function MainTabs() {
       })}
     >
       <Tab.Screen name="Employees" component={EmployeeScreen} />
-      <Tab.Screen name="Add Employee" component={AddScreen} />
+      <Tab.Screen name="Manage Employee" component={AddScreen} />
     </Tab.Navigator>
   );
 }

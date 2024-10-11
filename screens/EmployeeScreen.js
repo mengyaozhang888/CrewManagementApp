@@ -14,15 +14,12 @@ const EmployeeScreen = () => {
   //if we back to this tab,then reload employees
   useFocusEffect(
     useCallback(() => {
-      console.log("Screen is focused,reloading employees");
       loadEmployees();
     }, [loadEmployees])
   );
 
   //load employees
-  useEffect(() => {
-    console.log("Current employees:", employees);
-  }, [employees]);
+  useEffect(() => {}, [employees]);
   //handle modal open
   const openModal = (employee) => {
     setSelectedEmployee(employee);
@@ -40,7 +37,7 @@ const EmployeeScreen = () => {
       await completeTask(selectedEmployee.id);
       loadEmployees();
       closeModal();
-      selectedEmployee((prevState) => ({
+      setSelectedEmployee((prevState) => ({
         ...prevState,
         currentTask: "",
       }));
@@ -53,7 +50,7 @@ const EmployeeScreen = () => {
       await addTask(selectedEmployee.id, task);
       loadEmployees();
       closeModal();
-      selectedEmployee((prevState) => ({
+      setSelectedEmployee((prevState) => ({
         ...prevState,
         currentTask: "task",
       }));
@@ -89,15 +86,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
+    paddingHorizontal: 16,
   },
   title: {
-    fontSize: 24,
+    fontSize: 28,
     fontWeight: "bold",
     textAlign: "center",
     marginVertical: 20,
+    color: "#333",
   },
   list: {
     paddingHorizontal: 16,
+    paddingBottom: 20,
   },
 });
 

@@ -1,11 +1,15 @@
 import React, { createContext, useCallback, useEffect, useState } from "react";
 import { View, Text, StyleSheet, FlatList, SafeAreaView } from "react-native";
 
+//use child components
 import EmployeeItem from "../components/EmployeeItem";
 import EmployeeDetailModal from "../components/EmployeeDetailModal";
+//import context
 import { useEmployee } from "../components/EmployeeContext";
+//import focus effect
 import { useFocusEffect } from "@react-navigation/native";
 
+//screen for employees
 const EmployeeScreen = () => {
   const [selectedEmployee, setSelectedEmployee] = useState(null);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -57,6 +61,7 @@ const EmployeeScreen = () => {
     }
   };
 
+  //for rendering employee list
   const renderItem = ({ item }) => (
     <EmployeeItem item={item} onPress={() => openModal(item)} />
   );
@@ -64,6 +69,8 @@ const EmployeeScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.title}>Employee List</Text>
+
+      {/* //render list */}
       <FlatList
         data={employees}
         renderItem={renderItem}
@@ -71,6 +78,7 @@ const EmployeeScreen = () => {
         contentContainerStyle={styles.list}
         extraData={employees}
       />
+      {/* //modal,click the item,open modal */}
       <EmployeeDetailModal
         isVisible={isModalVisible}
         employee={selectedEmployee}

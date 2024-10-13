@@ -1,12 +1,9 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
+//home screen only have a button to navigate to the main tabs
 const HomeScreen = ({ navigation }) => {
   return (
-    // <ImageBackground
-    //   source={require("../assets/background.jpg")} // Make sure to add a background image to your assets folder
-    //   style={styles.backgroundImage}
-    // >
     <View style={styles.container}>
       <Text style={styles.title}>Welcome to Crew Manager</Text>
       <TouchableOpacity
@@ -16,7 +13,6 @@ const HomeScreen = ({ navigation }) => {
         <Text style={styles.buttonText}>Get Started</Text>
       </TouchableOpacity>
     </View>
-    // </ImageBackground>
   );
 };
 

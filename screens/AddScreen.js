@@ -7,12 +7,12 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
-  FlatList,
-  ScrollView,
   SectionList,
 } from "react-native";
+//use EmployeeContext
 import { useEmployee } from "../components/EmployeeContext";
-import RNPickerSelect from "react-native-picker-select";
+//use RNPickerSelect(both ios and android)
+import { Picker } from "@react-native-picker/picker";
 
 const AddScreen = () => {
   const [empName, setEmpName] = useState("");
@@ -20,18 +20,21 @@ const AddScreen = () => {
   const { addEmployee, employees, loadEmployees, deleteEmployee } =
     useEmployee();
 
+  //add new employee
   const addHandler = async () => {
+    //check if name and role are not empty
     if (!empName || !role) {
       Alert.alert("Please enter name and role");
       return;
     }
-
+    //add new employee
     const newEmployee = {
       id: Date.now().toString(),
       name: empName,
       role: role,
       currentTask: "",
     };
+    //use context to add employee
     const success = await addEmployee(newEmployee);
     if (success) {
       Alert.alert("Employee added successfully");
@@ -42,11 +45,14 @@ const AddScreen = () => {
     }
   };
 
+  //delete employee
   const onDeleteHandler = async (id) => {
+    //alert before delete
     Alert.alert("Delete Employee", "Are you sure?", [
       { text: "Cancel", style: "cancel" },
       {
         text: "OK",
+        //if user click ok,delete employee
         onPress: async () => {
           const success = await deleteEmployee(id);
           if (success) {
@@ -57,6 +63,7 @@ const AddScreen = () => {
       },
     ]);
   };
+  //render employee list and delete button
   const renderItem = ({ item }) => (
     <View style={styles.deleteListContainer}>
       <Text style={styles.item}>{item.name}</Text>
@@ -89,20 +96,19 @@ const AddScreen = () => {
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Role:</Text>
             <View style={styles.pickerContainer}>
-              <RNPickerSelect
-                onValueChange={(value) => setRole(value)}
-                placeholder={{ label: "Click to Select Role", value: null }}
-                items={[
-                  { label: "Engineer", value: "Engineer" },
-                  { label: "Manager", value: "Manager" },
-                  { label: "Intern", value: "Intern" },
-                  { label: "Designer", value: "Designer" },
-                  { label: "Marketing", value: "Marketing" },
-                  { label: "Developer", value: "Developer" },
-                ]}
-                value={role}
-                style={pickerSelectStyles}
-              />
+              <Picker
+                selectedValue={role}
+                onValueChange={(itemValue) => setRole(itemValue)}
+                style={styles.picker}
+              >
+                <Picker.Item label="Click to Select Role" value={null} />
+                <Picker.Item label="Engineer" value="Engineer" />
+                <Picker.Item label="Manager" value="Manager" />
+                <Picker.Item label="Intern" value="Intern" />
+                <Picker.Item label="Designer" value="Designer" />
+                <Picker.Item label="Marketing" value="Marketing" />
+                <Picker.Item label="Developer" value="Developer" />
+              </Picker>
             </View>
           </View>
           <TouchableOpacity onPress={addHandler} style={styles.button}>
@@ -202,26 +208,5 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginLeft: 10,
     fontSize: 16,
-  },
-});
-const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-    fontSize: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-
-    borderRadius: 4,
-    color: "black",
-    paddingRight: 30, // to ensure the text is never behind the icon
-  },
-  inputAndroid: {
-    fontSize: 16,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderWidth: 0.5,
-    borderColor: "gray",
-    borderRadius: 8,
-    color: "black",
-    paddingRight: 30, // to ensure the text is never behind the icon
   },
 });

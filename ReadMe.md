@@ -52,4 +52,8 @@ Crew Management Program is a simple program that allows users to manage their cr
 
 ## Screenshots
 
-<img src="https://github.com/MengyaoZhang/MobileApps-Assignment1/blob/main/Screenshots/Screenshot_2023-09-07-16-09-06-01.png" width="300" height="600">
+![Home Screen](./screenShot/Home%20to%20enter.png)
+![Employee Page](./screenShot/Employees.png)
+![Assign Works](./screenShot/Assign%20work.png)
+![Complete Works](./screenShot/Complete%20work.png)
+![Manage Employees](./screenShot/Manage%20Employees.png)

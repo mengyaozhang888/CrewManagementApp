@@ -16,8 +16,15 @@ Crew Management Program is a simple program that allows users to manage their cr
 
 ## Requirements
 
-    - Android Studio
-    - Visual Studio Code
+To run and develop this project, you'll need:
+
+    -Android Studio: For running the Android emulator and building the APK
+    -Visual Studio Code: For editing the source code and running the development server
+
+Additional dependencies:
+
+    -Node.js and npm (Node Package Manager)
+    -Expo CLI
 
 ## Installation Instructions
 
@@ -49,6 +56,10 @@ Crew Management Program is a simple program that allows users to manage their cr
 5. You can enter new crew members' information and add them to the list.
 6. You also can delete existing crew members by clicking on "Delete" button of each crew member.
 7. Either add or delete crew members, you will see the changes reflected in the main page.
+
+## github link
+
+[github - Crew Management App](https://github.com/mengyaozhang888/CrewManagementApp.git)
 
 ## Screenshots
 

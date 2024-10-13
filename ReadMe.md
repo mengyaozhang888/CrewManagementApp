@@ -43,9 +43,9 @@ Additional dependencies:
 2. Open the folder in Visual Studio Code.
 3. Open terminal type the command:
    `npm install`
-   `npm expo start:android`
-4. Then it will show a QR code and automatically open the app on visual device.
-5. Or use your Iphone to scan the QR code.
+   `npx expo start`
+4. Then it will show a QR code and lots of options. Press "a" to choose the Android emulator.
+5. If you press "s", it will switch to Expo go, you can use your Iphone to scan the QR code and run the app on your device.
 
 ## Usage
 

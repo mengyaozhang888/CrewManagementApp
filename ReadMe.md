@@ -28,14 +28,16 @@ Additional dependencies:
 
 ## Installation Instructions
 
-### Installing with APK
+### Installing with APK(recommended)
 
 1. Unzip the assignment file.
 2. Open the folder and find the apk file.
 3. Open devices manager in Android Studio.
-4. Select a device and run.
+4. Select a emulator device and run.
 5. Drag and drop the apk file into the device.
-6. Enjoy!
+6. You will see the app icon like below:
+   ![App Icon](./screenShot/icon.png "App Icon")
+7. Click on the icon to run the app.
 
 ### Installing with Source Code
 
@@ -45,7 +47,7 @@ Additional dependencies:
    `npm install`
    `npx expo start`
 4. Then it will show a QR code and lots of options. Press "a" to choose the Android emulator.
-5. If you press "s", it will switch to Expo go, you can use your Iphone to scan the QR code and run the app on your device.
+5. Wait for the app to build and run.
 
 ## Usage
 
